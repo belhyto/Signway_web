@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Translator</title>
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: url('background2.jpg') no-repeat center center fixed;
+        }
+        .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 30%;
+    background-color: #33333300;
+    padding: 8px 20px; /* Reduced padding */
+   
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    margin: 0 10px; /* Reduced margin */
+    font-size: 1em; /* Reduced font size */
+}
+
+.navbar a:hover {
+    color: #5B9C98;
+}
+
+        div {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        button {
+            margin-top: 5px;
+            padding: 10px;
+            height: 40px;
+            width: 200px;
+            color: white;
+            text-decoration: none;
+            border: none;
+            text-align: center;
+            font-size: 2em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 150px;
+            background: #5B9C98;
+            box-shadow: 24px 23px 49.1px 0px rgba(139, 116, 184, 0.13);
+            transition: background 0.3s ease;
+        }
+
+        .button:hover {
+            background: #008179;
+        }
+
+        #site-name {
+            font-size: 5em;
+            margin-bottom: 20px;
+            background: linear-gradient(98deg, #008179 -1.36%, #02282b 105.09%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        #webcam-container {
+            margin-top: 20px;
+            border: 20px solid #EAFAFB;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        #webcam-container canvas {
+            width: 100%; /* Make the webcam canvas take up 100% width */
+            height: auto; /* Let the height adjust proportionally */
+        }
+
+        #label-container {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #label-container div {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body> 
+    <div class="navbar">
+        <a href="index.html" ><img src="home2.png" alt=" Go back"></a>
+       
+        <!-- Add more links as needed -->
+    </div>
+
+    <div id="site-name">Live Translator</div>
+    <button type="button" onclick="init()">Start</button>
+    <div id="webcam-container"></div>
+    <div id="label-container"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <script type="text/javascript">
+        // More API functions here:
+        // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+    
+        // the link to your model provided by Teachable Machine export panel
+        const URL = "https://teachablemachine.withgoogle.com/models/8pLDtH_ER/";
+    
+        let model, webcam, labelContainer, maxPredictions;
+    
+        // Load the image model and setup the webcam
+        async function init() {
+            const modelURL = URL + "model.json";
+            const metadataURL = URL + "metadata.json";
+    
+            // load the model and metadata
+            // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+            // or files from your local hard drive
+            // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+            model = await tmImage.load(modelURL, metadataURL);
+            maxPredictions = model.getTotalClasses();
+    
+            // Convenience function to setup a webcam
+            const flip = true; // whether to flip the webcam
+            webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
+            await webcam.setup(); // request access to the webcam
+            await webcam.play();
+            window.requestAnimationFrame(loop);
+    
+            // append elements to the DOM
+            document.getElementById("webcam-container").appendChild(webcam.canvas);
+            labelContainer = document.getElementById("label-container");
+            for (let i = 0; i < maxPredictions; i++) { // and class labels
+                labelContainer.appendChild(document.createElement("div"));
+            }
+        }
+    
+        async function loop() {
+            webcam.update(); // update the webcam frame
+            await predict();
+            window.requestAnimationFrame(loop);
+        }
+    
+        // run the webcam image through the image model
+        async function predict() {
+            // predict can take in an image, video or canvas html element
+            const prediction = await model.predict(webcam.canvas);
+            for (let i = 0; i < maxPredictions; i++) {
+                const classPrediction =
+                    prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+                labelContainer.childNodes[i].innerHTML = classPrediction;
+            }
+        }
+    </script>
+</body>
+
+</html>
