@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Image Slider</title>
     <style>
-         body {
-            font-family: 'Montserrat', sans-serif; 
+        body {
+            font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
-           
-            background: url('background.jpg') no-repeat center center fixed;
+            background: url('background2.jpg') no-repeat center center fixed;
             background-size: cover;
             height: 100vh;
             display: flex;
@@ -19,61 +19,108 @@
             align-items: center;
             color: white;
         }
-        #site-name {
-            font-size: 10em; /* Increased font size */
-            margin-bottom: 20px;
-            background: linear-gradient(98deg, #008179 -1.36%, #00EA0D 105.09%);
+
+        #slider-container {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            text-align: center;
+        }
+
+        .slide img {
+            width: 100%; /* Make images take up 100% width */
+            max-height: 500px; /* Set a maximum height for the images */
+            object-fit: contain;
+        }
+
+        .slide-text {
+            font-size: 5em;
+            margin: 10px; /* Adjust margin to create space between image and text */
+            width: 100%;
+            text-align: center;
+            background: linear-gradient(98deg, #008179 -1.36%, #02282b 105.09%);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            animation: floatAnimation 3s infinite; /* Floating animation */
         }
 
-        @keyframes floatAnimation {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .button {
-            margin-top: 30px;
-            padding: 20px;
-            height: 40px;
-            width: 200px;
-           
-            color: white;
-            text-decoration: none;
+        #prev, #next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 6em;
+            color: rgb(255, 255, 255);
+            background: #f7f75a00;
             border: none;
-         
-            text-align: center;
-            font-size: 2em;
+            padding: 10px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 150px;
-            background: #03DAC5;
-            box-shadow: 24px 23px 49.1px 0px rgba(139, 116, 184, 0.13);
-            transition: background 0.3s ease; /* Add transition effect */
-
+            border-radius: 50%;
+            
         }
 
-        .button:hover {
-            background: #008179; /* Change background color on hover */
+        #prev {
+            left: 40px;
         }
-        
+
+        #next {
+            right: 10px;
+        }
     </style>
 </head>
+
 <body>
-    <div id="site-name"> Work is in progress :)</div>
+    <div id="slider-container">
+        <div class="slide">
+            <img src="a_a.png" alt="Image 1">
+            <div class="slide-text">A</div>
+        </div>
+        <div class="slide">
+            <img src="a_b.png" alt="Image 2">
+            <div class="slide-text">Slide 2 Text</div>
+        </div>
+        <div class="slide">
+            <img src="a_c.png" alt="Image 3">
+            <div class="slide-text">Slide 3 Text</div>
+        </div>
+        
+       
+        <button id="prev">&lt;</button>
+        <button id="next">&gt;</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.style.display = i === index ? 'block' : 'none';
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        document.getElementById('next').addEventListener('click', nextSlide);
+        document.getElementById('prev').addEventListener('click', prevSlide);
+
+        // Show the first slide initially
+        showSlide(currentSlide);
+    </script>
 </body>
+
 </html>
