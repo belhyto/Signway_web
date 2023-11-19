@@ -6,6 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Slider</title>
     <style>
+            .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 30%;
+    background-color: #33333300;
+    padding: 8px 20px; /* Reduced padding */
+   
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    margin: 0 10px; /* Reduced margin */
+    font-size: 1em; /* Reduced font size */
+}
+
+.navbar a:hover {
+    color: #5B9C98;
+}
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
@@ -51,30 +75,37 @@
         }
 
         #prev, #next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 6em;
-            color: rgb(255, 255, 255);
-            background: #f7f75a00;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 50%;
-            
-        }
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 6em;
+    color: rgb(255, 255, 255);
+    background: #f7f75a00;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 150px;
+    transition: background 0.3s ease; /* Add transition effect */
+}
 
-        #prev {
-            left: 40px;
-        }
+#prev:hover, #next:hover {
+    background: #f7f75a73; /* Change background color on hover */
+}
 
-        #next {
-            right: 10px;
-        }
+            #prev {
+                left: 40px;
+            }
+
+            #next {
+                right: 10px;
+            }
     </style>
 </head>
 
 <body>
+    <div class="navbar">
+        <a href="index.html" ><img src="home2.png" alt=" Go back"></a>
+    </div>
     <div id="slider-container">
         <div class="slide">
             <img src="a_a.png" alt="Image 1">
@@ -82,14 +113,85 @@
         </div>
         <div class="slide">
             <img src="a_b.png" alt="Image 2">
-            <div class="slide-text">Slide 2 Text</div>
+            <div class="slide-text">B</div>
         </div>
         <div class="slide">
             <img src="a_c.png" alt="Image 3">
-            <div class="slide-text">Slide 3 Text</div>
+            <div class="slide-text">C</div>
         </div>
-        
-       
+        <div class="slide">
+            <img src="a_d.png" alt="Image 2">
+            <div class="slide-text">D</div>
+        </div>
+        <div class="slide">
+            <img src="a_e.png" alt="Image 2">
+            <div class="slide-text">E</div>
+        </div> 
+ <div class="slide">
+            <img src="a_f.png" alt="Image 2">
+            <div class="slide-text">F</div>
+        </div>  <div class="slide">
+            <img src="a_g.png" alt="Image 2">
+            <div class="slide-text">G</div>
+        </div>  <div class="slide">
+            <img src="a_h.png" alt="Image 2">
+            <div class="slide-text">H</div>
+        </div>  <div class="slide">
+            <img src="a_i.png" alt="Image 2">
+            <div class="slide-text">I</div>
+        </div>  <div class="slide">
+            <img src="a_j.png" alt="Image 2">
+            <div class="slide-text">J</div>
+        </div>
+        <div class="slide">
+        <img src="a_k.png" alt="Image 2">
+        <div class="slide-text">K</div>
+    </div>  <div class="slide">
+        <img src="a_l.png" alt="Image 2">
+        <div class="slide-text">L</div>
+    </div>  <div class="slide">
+        <img src="a_m.png" alt="Image 2">
+        <div class="slide-text">M</div>
+    </div>  <div class="slide">
+        <img src="a_n.png" alt="Image 2">
+        <div class="slide-text">N</div>
+    </div>  <div class="slide">
+        <img src="o.png" alt="Image 2">
+        <div class="slide-text">O</div>
+    </div>  <div class="slide">
+        <img src="a_p.png" alt="Image 2">
+        <div class="slide-text">P</div>
+    </div>  <div class="slide">
+        <img src="a_q.png" alt="Image 2">
+        <div class="slide-text">Q</div>
+    </div>  <div class="slide">
+        <img src="a_r.png" alt="Image 2">
+        <div class="slide-text">R</div>
+    </div>  <div class="slide">
+        <img src="a_s.png" alt="Image 2">
+        <div class="slide-text">S</div>
+    </div>  <div class="slide">
+        <img src="a_t.png" alt="Image 2">
+        <div class="slide-text">T</div>
+    </div>  <div class="slide">
+        <img src="a_u.png" alt="Image 2">
+        <div class="slide-text">U</div>
+    </div>  <div class="slide">
+        <img src="a_v.png" alt="Image 2">
+        <div class="slide-text">V</div>
+    </div>  <div class="slide">
+        <img src="a_w.png" alt="Image 2">
+        <div class="slide-text">W</div>
+    </div>  <div class="slide">
+        <img src="a_x.png" alt="Image 2">
+        <div class="slide-text">X</div>
+    </div>  <div class="slide">
+        <img src="a_y.png" alt="Image 2">
+        <div class="slide-text">Y</div>
+    </div>  <div class="slide">
+        <img src="a_z.png" alt="Image 2">
+        <div class="slide-text">Z</div>
+    </div>
         <button id="prev">&lt;</button>
         <button id="next">&gt;</button>
     </div>
